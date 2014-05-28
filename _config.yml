@@ -1,0 +1,30 @@
+title:            francisZ note
+description:      不悔过去，不畏将来。
+url:              # Site url.
+baseurl:          # Base url. ( if use subdirectory-like URL )
+signoff:          francisZ
+disqus_shortname: francisZ
+google_analytics_id: UA-51408748-1
+# duoshuo:          true
+
+links:
+  - name:         Home
+    url:          /
+  - name:         Life
+    url:          /life
+  - name:         francisZ
+    url:          /about
+  #- name:         Feed
+  #  url:          /public/feed.xml
+  #- name:         Email
+  #  url:          mailto:zgx1990@gmail.com
+  #  external:     true
+
+pygments:         true
+permalink:        pretty
+markdown:         redcarpet
+redcarpet:
+  extensions:     [autolink, tables]
+
+#permalink: /:year/:month/:day/:title.html
+paginate: 10

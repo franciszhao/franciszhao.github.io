@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>{{ page.title }} - {{ site.title }}</title>
+    {% include head.html %}
+  </head>
+  <body>
+    <!-- {% include header.html %} -->
+    <div id='container'>
+      {% include links.html %}
+      {% include post_pagination.html %}
+      <div class="content">
+        <section class='post'>
+          <h1>
+            <div class='date'>{{ page.date | date:"%Y-%m-%d" }}</div>
+            {{ page.title }}
+          </h1>
+          {{ content }}
+        </section>
+      </div>
+      {% if site.duoshuo and page.duoshuo != false %}
+        {% include duoshuo.html %}
+      {% endif %}
+    </div>
+    {% include footer.html %}
+  </body>
+</html>

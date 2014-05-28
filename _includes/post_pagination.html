@@ -1,0 +1,20 @@
+<section class="paging">
+  {% if page.previous  %}
+    {% if page.category == page.previous.category %}
+    <div class="left">
+      <a href="{{ site.baseurl }}{{ page.previous.url }}">
+        ‹
+      </a>
+    </div>
+    {% endif %}
+  {% endif %}
+  {% if page.next %}
+    {% if page.category == page.next.category %}
+    <div class="right">
+      <a href="{{ site.baseurl }}{{ page.next.url }}">
+        ›
+      </a>
+    </div>
+    {% endif %}
+  {% endif %}
+</section>
