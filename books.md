@@ -1,0 +1,14 @@
+---
+layout: index
+---
+
+<ul class="posts">
+  {% for post in site.posts %}
+  {% if post.category == "book" %}
+  <li>
+    <small class="datetime muted" data-time="{{ post.date }}">{{ post.date | date:"%Y-%m-%d" }} </small>
+    <a href="{{site.baseurl}}{{ post.url }}">{{ post.title }}</a>
+  </li>
+  {% endif %}
+  {% endfor %}
+</ul>
