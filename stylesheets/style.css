@@ -386,5 +386,9 @@ body code
   white-space:nowrap;
 }
 
+pre code {
+  background-color: #29281e;
+  border-radius: 0px;
+}
 
 
