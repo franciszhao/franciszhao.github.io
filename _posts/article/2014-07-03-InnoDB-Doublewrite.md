@@ -49,6 +49,8 @@ doublewrite由两部分组成，一部分是内存中的doublewrite buffer大小
 
  `Innodb_dblwr_writes`：The number of doublewrite operations that have been performed.
  
+ 当Innodb\_dblwr\_pages\_written : Innodb\_dblwr\_writes比值比较小的时候，说明系统写入压力并不大。
+ 
 
  参考：
 
