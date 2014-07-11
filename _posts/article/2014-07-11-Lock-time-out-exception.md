@@ -1,7 +1,7 @@
 ---
 layout: post
 category:article
-title: Lock time out exception -- 分库分表
+title: Lock time out exception 分库分表
 ---
 
 昨天开发过程中，调试一段代码的时候程序抛出了Lock wait time out excaption。
