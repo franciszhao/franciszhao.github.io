@@ -1,10 +1,11 @@
 ---
 layout: post
-category:article
-title: Lock time out exception 分库分表
+category: article
+title: Lock wait timeout
 ---
 
-昨天开发过程中，调试一段代码的时候程序抛出了Lock wait time out excaption。
+
+昨天开发过程中，调试一段代码的时候程序抛出了Lock wait timeout excaption。
 
 ```
 Caused by: java.sql.SQLException: Lock wait timeout exceeded; try restarting transaction
