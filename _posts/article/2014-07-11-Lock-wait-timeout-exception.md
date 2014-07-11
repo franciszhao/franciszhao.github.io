@@ -28,11 +28,11 @@ Caused by: java.sql.SQLException: Lock wait timeout exceeded; try restarting tra
 
 ---
 
-![](http://francisnote.qiniudn.com/innodb_trx.png)
+![](http://francisnote.qiniudn.com/locks.png)
 
 ---
 
-![](http://francisnote.qiniudn.com/innodb_trx.png)
+![](http://francisnote.qiniudn.com/lock_wait.png)
 
 问题大概能看出来了，innodb_locks这两个锁加在同一个表的同一个index上面，一个是X锁，一个是S锁，而这两个锁有分别属于不同的trx，所以会出现锁等待的问题。可是让我比较纳闷的是，为什么数据库这边会有三个trx？？不应该是一个吗？当场我就斯巴达了。在程序里大家都是由一个事物来管理呀，这一点百思不得其解，后来查看程序这边debug的log，发现程序这边也是有三个事务，额……
 
@@ -83,7 +83,7 @@ public class TestServiceImpl {
 然后是methodB，table_b_single不需要分表，里面的记录和任何userID都没有关系，这样一来每次对table_b_signle进行操作，使用的datasource都是默认的datasource（DB_A），但是inner join里面的查询操作需要从两个数据库四张表获取数据，相应的会在这四张表上面都加锁（主键索引加S锁）。
 
 很显然，对于methodA，数据库层面不可能只用一个事务，毕竟methodC和methodB的操作都会涉及到不同数据库，这样就解释了information_schema.innodb_trx里面会查出来多个事务。然后其实在程序层面也是用到了不同的事务，主要是这样的，这里分库分表用到了summercool这样一个框架，这个框架可以管理不同数据库的事务，也就是说，连接不同数据库程序用到的事务不一样，但是summercool会管理好这些不同的事务，使其对于开发人员来说可以视其操作在一个事务里，即使这操作需要用到不同数据库。这个地方可能有点绕啊，这么来说吧，对于开发人员来说summercool会确保methodA里面的操作具有原子性，即使methodC失败，methodB也会回滚。虽然methodB和methodC会用到不同的事务，但是呢对于开发人员来说这部分是透明的，无须自己管理。有点类似总分的感觉，如下图（三个不同颜色的矩形框表示三个事务），如果还是不懂恕楼主无能，解释不清。summercool的事务管理这部分我并没有去查阅详细代码，adrian看过这部分代码，表示大致是这个样子的。
-![](http://francisnote.qiniudn.com/innodb_trx.png)
+![](http://francisnote.qiniudn.com/transaction.png)
 
 然后默认的autocommit为true，在methodB执行之后，事务并没有提交，那么methodB中的操作在两个数据库四张表上加的S锁并没有释放，而这个时候执行methodC，我们前面提到了，这两个操作并不会使用同样的事务，而这个时候methodC中的操作需要在table_a_{shardValue}上面加X锁，那自然无法获取（都被methodB的操作加了S锁），一直被阻塞。
 
