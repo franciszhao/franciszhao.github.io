@@ -1,6 +1,6 @@
 ---
 layout: post
-category: article
+category: book
 titile: 《MySQL技术内幕：InnoDB存储引擎》笔记
 ---
 
