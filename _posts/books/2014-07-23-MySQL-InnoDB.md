@@ -1,7 +1,7 @@
 ---
 layout: post
 category: book
-titile: 《MySQL技术内幕：InnoDB存储引擎》笔记
+title: 《MySQL技术内幕：InnoDB存储引擎》笔记
 ---
 
 ##Summary
@@ -95,6 +95,7 @@ InnoDB中checkpoint有两种：
 master thread的主要工作可以用下面的为代码来表示:
 
 InnoDB1.2.×版本之前：
+
 ```
 void master_thread() {
     goto loop;
@@ -152,6 +153,7 @@ void master_thread() {
         waiting event
         goto loop
 }
+
 ```
 
 基本上master thread所做的事情就是：刷新日志缓冲，刷新脏页，合并插入缓冲，删除无用的undo页这几个操作，只不过不同情况下刷新的页数之类的不同。
@@ -257,7 +259,7 @@ mysql> CREATE TABLE `slow_log` (
 mysql> SET GLOBAL log_outout='TABLE';
 ```
 
->我自己尝试的时候没能成功的让log输出到table中，做的修改也就是新建table slow_log, 然后修改log_putput为table，然后 select sleep(5), 郁闷……
+>我自己尝试的时候没能成功的让log输出到table中，做的修改也就是新建table slow\_log, 然后修改log\_putput为table，然后 select sleep(5), 郁闷……
 
 使用`mysqldumpslow`命令可以分析满查询日志， `mysqldumpslow --help`。
 
@@ -318,9 +320,10 @@ mysql> show variables like '%binlog%';
  > mysqlbinlog shdsh-zhaogx3-bin.000001 --start-datetime="2014-07-04 15:00:00" | mysql -uroot -p
  mysqlbinlog shdsh-zhaogx3-bin.000001 --start-position=200 | mysql -uroot -p
  
- _另外发现一个命令： `flush logs;`可用来刷新binary log，会重新生成一个二进制日志文件。点击[这里](http://www.xifenfei.com/245.html)。_
+ >另外发现一个命令： `flush logs;`可用来刷新binary log，会重新生成一个二进制日志文件。点击[这里](http://www.xifenfei.com/245.html)。_
  
- ###InnoDB存储引擎文件
+ 
+###InnoDB存储引擎文件
  
  **表空间文件**
  
