@@ -1,8 +1,9 @@
 ---
-layout:post
-category:article
+layout: post
 title: Schema与数据类型优化
+category: article
 ---
+
 关于数据类型选择的一些记录
 
 ###选择优化的数据类型
