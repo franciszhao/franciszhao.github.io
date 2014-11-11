@@ -25,10 +25,12 @@ Shard这一部分，上图所示是一个[replica set](http://docs.mongodb.org/m
 
  **1 启动数据节点**
 
-```shell
+```java
+
 ./bin/mongod --port 27021 --dbpath data_27021 --fork --logpath logs/27021.log
 ./bin/mongod --port 27022 --dbpath data_27022 --replSet test27022 --fork --logpath logs/27021.log
 ./bin/mongod --port 27023 --dbpath data_27023 --replSet test27023 --fork --logpath logs/27021.log
+
 ```
 
 这边我启动了三个数据节点，`--fork`表示已后台进程的方式运行， `--replSet`指定了这个节点所属replica set的名称，这里有test27022和test27023两个replica set，并且每个set只有一个节点。端口27021对应的实例留作演示shard为单台机器用。
