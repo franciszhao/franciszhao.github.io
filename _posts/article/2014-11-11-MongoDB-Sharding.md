@@ -38,13 +38,17 @@ Shard这一部分，上图所示是一个[replica set](http://docs.mongodb.org/m
  **2 启动config server**
 
 ```json
+
 ./bin/mongod --configsvr --port 27024 --dbpath data_27024 --fork --logpath logs/27024.log
+
 ```
         
  **3 启动router**
 
 ```shell
+
 ./bin/mongos --configdb localhost:27024 --port 27025 --fork --logpath logs/27021.log 
+
 ```
 
 启动的时候指明config server的地址，如果有多个以`,`分隔。
