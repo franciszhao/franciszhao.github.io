@@ -37,25 +37,21 @@ Shard这一部分，上图所示是一个[replica set](http://docs.mongodb.org/m
 
  **2 启动config server**
 
-```json
-
+```java
 ./bin/mongod --configsvr --port 27024 --dbpath data_27024 --fork --logpath logs/27024.log
-
 ```
         
  **3 启动router**
 
-```shell
-
+```java
 ./bin/mongos --configdb localhost:27024 --port 27025 --fork --logpath logs/27021.log 
-
 ```
 
 启动的时候指明config server的地址，如果有多个以`,`分隔。
 
  **4 配置replica set**
 
-```
+```java
 ./bin/mongo localhost:27022 #登录至replica set中任一机器
 
 > use admin
