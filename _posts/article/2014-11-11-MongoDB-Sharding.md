@@ -1,6 +1,6 @@
 ---
 layout: post
-title: MongoDB Sharding操作!
+title: MongoDB Sharding
 category: article
 ---
 
