@@ -25,7 +25,7 @@ Shard这一部分，上图所示是一个[replica set](http://docs.mongodb.org/m
 
  **1 启动数据节点**
 
-```
+```shell
 ./bin/mongod --port 27021 --dbpath data_27021 --fork --logpath logs/27021.log
 ./bin/mongod --port 27022 --dbpath data_27022 --replSet test27022 --fork --logpath logs/27021.log
 ./bin/mongod --port 27023 --dbpath data_27023 --replSet test27023 --fork --logpath logs/27021.log
