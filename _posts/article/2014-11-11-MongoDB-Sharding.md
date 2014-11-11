@@ -103,7 +103,7 @@ switched to db admin
 
  **5 配置Sharding**
  
-```
+```java
 ./bin/mongo localhost:27025 #登录至router
 
 mongos> use admin #所有操作必须在admin下进行
@@ -160,7 +160,7 @@ mongos> sh.status()
 
 这样修改chunk size。先连接上任意mongos
 
-```
+```java
 db.settings.save( { _id:"chunksize", value: 1 } )
 ```
 
@@ -168,7 +168,7 @@ db.settings.save( { _id:"chunksize", value: 1 } )
 
 ###插入数据
 
-```
+```java
 ./bin/mongo localhost:27025 #登录到router
 
 mongos> use uus_test;
@@ -248,7 +248,7 @@ mongos> db.user.stats() #查看user状态
 从`db.user.stats()`的结果可以看出来，user这个collection被sharded，数据分布在test27022和test27023两个shard上面，test27022上面有36378条数据，大小为4.07MB；test27023上面有63622条数据，大小为7.12MB。
 
 
-```
+```java
 mongos> use admin
 switched to db admin
 
@@ -301,7 +301,7 @@ mongos> sh.status()  #查看整个shard的信息
 
 上面已经建立了一个shard集群，现在把最开始启动的localhost:27021这个实例添加进来，作为单台机器添加进来，至于replica set操作步骤一致。
 
-```
+```java
 ./bin/mongo localhost:27025
 
 mongos> use admin
@@ -353,7 +353,7 @@ mongos> sh.status();
 
 之所以会自动同步数据是因为MongoDB有个balancer在运行，查看balancer信息：
 
-```
+```java
 mongos> use config
 switched to db config
 
@@ -374,7 +374,7 @@ mongos> db.locks.find({_id: "balancer"}).pretty();
 
 config数据库下面有这些collection：
 
-```
+```java
 mongos> show collections;
 changelog
 chunks
@@ -397,7 +397,7 @@ version
 
 移除shard需要等待balancer将需要移除的shard上面的数据迁移到其他shards。如果移除的shard是某个DB的primary shard，则需要为该DB设置新的primary shard。
 
-```
+```java
 mongos> use admin
 switched to db admin
 
@@ -492,7 +492,7 @@ mongos> sh.status()
 
 下面尝试移除test27022，该分区是uus_test的primary shard：
 
-```
+```java
 mongos> db.runCommand({removeShard:"localhost:27022"})
 {
 	"msg" : "draining started successfully",
@@ -617,7 +617,8 @@ shards:
  - 手动移动chunk
     
 手动移动chunk的机会很少
-```
+
+```java
 mongos> db.adminCommand({moveChunk: "uus_test.user", find:{userId:10}, to:"localhost:27021"})
 ```
 
